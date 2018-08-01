@@ -1,0 +1,73 @@
+第一种方法：
+思路：利用for in 循环，以及利用列表的索引特性，进行迭代循环，筛选出符合条件的答案。
+class Solution:
+    def twoSum(nums,target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i] + nums[j] == target:
+                    return i,j
+    nums = [2,7,8,12,11]
+    target = 9
+    print(twoSum(nums,target))
+    
+    # however,it showed  a mistake:
+    # Line 24: TypeError: twoSum() takes 2 positional arguments but 3 were given
+    
+#   在idle中编辑，上面的是对的，但是报错的原因是因为有个class Solution，
+#   没有类调用的情况下，这种函数定义是可以的，但是在类调用的时候，函数定义需要更改为：    
+#   def twoSum(self,nums,target):
+#   同时对象调用方法是print(Solution().twoSum(nums,target))
+#   参考：https://blog.csdn.net/babi_qq/article/details/80940698
+   
+修正：
+class Solution:
+    def twoSum(self,nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i] + nums[j] == target:
+                    return i,j
+nums = [2,7,8,11,17]
+target = 9
+print(Solution().twoSum(nums,target))
+
+
+第二种方法：
+def twoSum(nums,target):     
+    n = len(nums)
+    for x in range(n):
+        b = target-nums[x]
+        if b in nums:
+            y = nums.index(b)
+            if y!=x:
+                return x,y
+nums = [2,7,8,11,17]
+target = 9
+m = twoSum(nums,target)
+print(m)
+
+有类调用的时候修正：
+class Solution:
+    def twoSum(self,nums,target):     
+        n = len(nums)
+        for x in range(n):
+            b = target-nums[x]
+            if b in nums:
+                y = nums.index(b)
+                    if y!=x:
+                        return x,y
+nums = [2,7,8,11,17]
+target = 9
+m = twoSum(nums,target)
+print(Solution.m)
+
+# 本问题网址：https://leetcode-cn.com/problems/two-sum/description/
